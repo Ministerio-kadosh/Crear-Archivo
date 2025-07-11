@@ -1,0 +1,33 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generar Archivo</title>
+</head>
+<body>
+    <h1>Generar informe</h1>
+    <input type="text" id="nombre" placeholder="Escribe tu nombre">
+    <button onclick="generarArchivo()">Descargar Informe</button>
+
+    <script>
+    async function generarArchivo() {
+        const nombre = document.getElementById('nombre').value;
+
+        const response = await fetch('/generar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nombre })
+        });
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "informe.txt";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    }
+    </script>
+</body>
+</html>

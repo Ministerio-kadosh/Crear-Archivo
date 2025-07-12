@@ -1,2 +1,4 @@
 flask
 python-docx
+smtplib
+email-validator
